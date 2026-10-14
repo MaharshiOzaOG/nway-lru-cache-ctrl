@@ -1,0 +1,215 @@
+[2026-10-14 20:58:46 UTC] qrun -batch -access=rw+/. '-timescale' '1ns/1ns' -mfcu design.sv testbench.sv '-voptargs=+acc=npr'  -do  " run -all; exit"  
+QuestaSim-64 qrun 2025.2 Utility 2025.05 May 31 2025
+Start time: 16:58:46 on Oct 14,2026
+qrun -batch -access=rw+/. -timescale 1ns/1ns -mfcu design.sv testbench.sv -voptargs="+acc=npr" -do " run -all; exit" 
+** Note: (qrun-220) 'modelsim.ini' is used as the ini file.
+Creating library 'qrun.out/work'.
+QuestaSim-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+Start time: 16:58:46 on Oct 14,2026
+vlog -timescale 1ns/1ns -mfcu design.sv testbench.sv -work qrun.out/work -statslog qrun.out/stats_log -csession=incr 
+** Note: (vlog-220) 'modelsim.ini' is used as the ini file.
+-- Compiling module cache_ctrl_assoc
+-- Compiling module tb
+
+Top level modules:
+	tb
+End time: 16:58:46 on Oct 14,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+QuestaSim-64 vopt 2025.2 Compiler 2025.05 May 31 2025
+** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+Start time: 16:58:46 on Oct 14,2026
+vopt -access=rw+/. -timescale 1ns/1ns -mfcu "+acc=npr" -findtoplevels qrun.out/work+2+ -work qrun.out/work -statslog qrun.out/stats_log -csession=incr -o qrun_opt -csessionid=3 
+** Note: (vopt-220) 'modelsim.ini' is used as the ini file.
+
+Top level modules:
+	tb
+
+Analyzing design...
+-- Loading module tb
+-- Loading module cache_ctrl_assoc
+Optimizing 2 design-units (inlining 0/2 module instances):
+-- Optimizing module tb(fast)
+-- Optimizing module cache_ctrl_assoc(fast)
+Optimized design name is qrun_opt
+End time: 16:58:47 on Oct 14,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 1
+# ** Note: (vsim-220) 'modelsim.ini' is used as the ini file.
+# vsim -batch -lib qrun.out/work -do " run -all; exit" -statslog qrun.out/stats_log qrun_opt -appendlog -l qrun.log 
+# Start time: 16:58:47 on Oct 14,2026
+# //  Questa Sim-64
+# //  Version 2025.2 linux_x86_64 May 31 2025
+# //
+# // Unpublished work. Copyright 2025 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading sv_std.std
+# Loading work.tb(fast)
+# Loading work.cache_ctrl_assoc(fast)
+# 
+# run -all
+# 
+# ==== T0 reset: outputs idle, inputs ignored ====
+# 
+# ==== T1 cold miss (set 0, word 0) ====
+# [130000] T1 cold miss | RD 00000000 MISS    lat=6 rdata=5eed0000
+# 
+# ==== T2 hits on other words, last word, unaligned bytes ====
+# [150000] T2 word1 | RD 00000004 HIT     lat=0 rdata=5eed0004
+# [170000] T2 last word | RD 0000000c HIT     lat=0 rdata=5eed000c
+# [190000] T2 byte offset 1 | RD 00000009 HIT     lat=0 rdata=5eed0008
+# [210000] T2 byte offset 2 | RD 0000000a HIT     lat=0 rdata=5eed0008
+# [230000] T2 byte offset 3 | RD 0000000b HIT     lat=0 rdata=5eed0008
+# 
+# ==== T3 fill every way of set 1, then hit every way ====
+# [310000] T3 fill | RD 00000010 MISS    lat=6 rdata=5eed0010
+# [390000] T3 fill | RD 00000110 MISS    lat=6 rdata=5eed0110
+# [470000] T3 fill | RD 00000210 MISS    lat=6 rdata=5eed0210
+# [550000] T3 fill | RD 00000310 MISS    lat=6 rdata=5eed0310
+# [570000] T3 hit | RD 00000014 HIT     lat=0 rdata=5eed0014
+# [590000] T3 hit | RD 00000114 HIT     lat=0 rdata=5eed0114
+# [610000] T3 hit | RD 00000214 HIT     lat=0 rdata=5eed0214
+# [630000] T3 hit | RD 00000314 HIT     lat=0 rdata=5eed0314
+# 
+# ==== T4 exact LRU order ====
+# [710000] T4 fill | RD 00000020 MISS    lat=6 rdata=5eed0020
+# [790000] T4 fill | RD 00000120 MISS    lat=6 rdata=5eed0120
+# [870000] T4 fill | RD 00000220 MISS    lat=6 rdata=5eed0220
+# [950000] T4 fill | RD 00000320 MISS    lat=6 rdata=5eed0320
+# [970000] T4 touch t0 | RD 00000024 HIT     lat=0 rdata=5eed0024
+# [1050000] T4 new tag evicts t1 | RD 00000420 MISS    lat=6 rdata=5eed0420
+# [1130000] T4 t1 must MISS | RD 00000120 MISS    lat=6 rdata=5eed0120
+# [1150000] T4 t0 must HIT | RD 00000020 HIT     lat=0 rdata=5eed0020
+# [1230000] T4 t2 must MISS | RD 00000220 MISS    lat=6 rdata=5eed0220
+# 
+# ==== T5 store hits: no traffic, overwrite, every word ====
+# [1310000] T5 load line | RD 00000060 MISS    lat=6 rdata=5eed0060
+# [1330000] T5 store hit | WR 00000064 HIT     lat=0 wdata=11111111
+# [1350000] T5 same word again | WR 00000064 HIT     lat=0 wdata=22222222
+# [1370000] T5 last write wins | RD 00000064 HIT     lat=0 rdata=22222222
+# [1390000] T5 every word | WR 00000060 HIT     lat=0 wdata=c0de0000
+# [1410000] T5 every word | WR 00000064 HIT     lat=0 wdata=c0de0001
+# [1430000] T5 every word | WR 00000068 HIT     lat=0 wdata=c0de0002
+# [1450000] T5 every word | WR 0000006c HIT     lat=0 wdata=c0de0003
+# [1470000] T5 read back | RD 00000060 HIT     lat=0 rdata=c0de0000
+# [1490000] T5 read back | RD 00000064 HIT     lat=0 rdata=c0de0001
+# [1510000] T5 read back | RD 00000068 HIT     lat=0 rdata=c0de0002
+# [1530000] T5 read back | RD 0000006c HIT     lat=0 rdata=c0de0003
+# 
+# ==== T6 store miss = write-allocate ====
+# [1610000] T6 store miss | WR 00000378 MISS    lat=6 wdata=feedface
+# [1630000] T6 rest of line from mem | RD 00000370 HIT     lat=0 rdata=5eed0370
+# [1650000] T6 rest of line from mem | RD 00000374 HIT     lat=0 rdata=5eed0374
+# [1670000] T6 rest of line from mem | RD 00000378 HIT     lat=0 rdata=feedface
+# [1690000] T6 rest of line from mem | RD 0000037c HIT     lat=0 rdata=5eed037c
+# 
+# ==== T7 all-dirty set: every eviction writes back ====
+# [1770000] T7 dirty fill | WR 00000080 MISS    lat=6 wdata=d0000000
+# [1850000] T7 dirty fill | WR 00000184 MISS    lat=6 wdata=d0000001
+# [1930000] T7 dirty fill | WR 00000288 MISS    lat=6 wdata=d0000002
+# [2010000] T7 dirty fill | WR 0000038c MISS    lat=6 wdata=d0000003
+# [2140000] T7 evict dirty | RD 00000480 MISS+WB lat=11 rdata=5eed0480
+# [2270000] T7 evict dirty | RD 00000580 MISS+WB lat=11 rdata=5eed0580
+# [2400000] T7 evict dirty | RD 00000680 MISS+WB lat=11 rdata=5eed0680
+# [2530000] T7 evict dirty | RD 00000780 MISS+WB lat=11 rdata=5eed0780
+# [2610000] T7 data survived in mem | RD 00000080 MISS    lat=6 rdata=d0000000
+# [2690000] T7 data survived in mem | RD 00000184 MISS    lat=6 rdata=d0000001
+# [2770000] T7 data survived in mem | RD 00000288 MISS    lat=6 rdata=d0000002
+# [2850000] T7 data survived in mem | RD 0000038c MISS    lat=6 rdata=d0000003
+# 
+# ==== T8 clean eviction: no writeback ====
+# [2930000] T8 clean fill | RD 00000090 MISS    lat=6 rdata=5eed0090
+# [3010000] T8 clean fill | RD 00000190 MISS    lat=6 rdata=5eed0190
+# [3090000] T8 clean fill | RD 00000290 MISS    lat=6 rdata=5eed0290
+# [3170000] T8 clean fill | RD 00000390 MISS    lat=6 rdata=5eed0390
+# [3250000] T8 evict clean (no WB) | RD 00000490 MISS    lat=6 rdata=5eed0490
+# 
+# ==== T9 mixed dirty/clean in one set ====
+# [3330000] T9 clean | RD 000000a0 MISS    lat=6 rdata=5eed00a0
+# [3410000] T9 dirty | WR 000001a0 MISS    lat=6 wdata=ab000001
+# [3490000] T9 clean | RD 000002a0 MISS    lat=6 rdata=5eed02a0
+# [3570000] T9 dirty | WR 000003a0 MISS    lat=6 wdata=ab000003
+# [3650000] T9 evict (WB only odd) | RD 000004a0 MISS    lat=6 rdata=5eed04a0
+# [3780000] T9 evict (WB only odd) | RD 000005a0 MISS+WB lat=11 rdata=5eed05a0
+# [3860000] T9 evict (WB only odd) | RD 000006a0 MISS    lat=6 rdata=5eed06a0
+# [3990000] T9 evict (WB only odd) | RD 000007a0 MISS+WB lat=11 rdata=5eed07a0
+# 
+# ==== T10 LRU thrash: WAYS+1 tags round-robin ====
+# [4070000] T10 thrash | RD 000000b0 MISS    lat=6 rdata=5eed00b0
+# [4150000] T10 thrash | RD 000001b0 MISS    lat=6 rdata=5eed01b0
+# [4230000] T10 thrash | RD 000002b0 MISS    lat=6 rdata=5eed02b0
+# [4310000] T10 thrash | RD 000003b0 MISS    lat=6 rdata=5eed03b0
+# [4390000] T10 thrash | RD 000004b0 MISS    lat=6 rdata=5eed04b0
+# [4470000] T10 thrash | RD 000000b0 MISS    lat=6 rdata=5eed00b0
+# [4550000] T10 thrash | RD 000001b0 MISS    lat=6 rdata=5eed01b0
+# [4630000] T10 thrash | RD 000002b0 MISS    lat=6 rdata=5eed02b0
+# [4710000] T10 thrash | RD 000003b0 MISS    lat=6 rdata=5eed03b0
+# [4790000] T10 thrash | RD 000004b0 MISS    lat=6 rdata=5eed04b0
+# [4870000] T10 thrash | RD 000000b0 MISS    lat=6 rdata=5eed00b0
+# [4950000] T10 thrash | RD 000001b0 MISS    lat=6 rdata=5eed01b0
+# [5030000] T10 thrash | RD 000002b0 MISS    lat=6 rdata=5eed02b0
+# [5110000] T10 thrash | RD 000003b0 MISS    lat=6 rdata=5eed03b0
+# [5190000] T10 thrash | RD 000004b0 MISS    lat=6 rdata=5eed04b0
+# 
+# ==== T11 address extremes ====
+# [5270000] T11 tag=all1 set=max word=last | RD fffffffc MISS    lat=6 rdata=a112fffc
+# [5290000] T11 store top address | WR fffffffc HIT     lat=0 wdata=ffff0001
+# [5370000] T11 tag 0 same set | RD 000000fc MISS    lat=6 rdata=5eed00fc
+# [5390000] T11 tag all1 still HIT | RD fffffffc HIT     lat=0 rdata=ffff0001
+# [5410000] T11 addr FFFFFFFF | RD ffffffff HIT     lat=0 rdata=ffff0001
+# 
+# ==== T12 memory latency 1 and 20 ====
+# [5470000] T12 lat=1 | WR 000000c0 MISS    lat=4 wdata=1a700000
+# [5530000] T12 lat=1 | WR 000001c0 MISS    lat=4 wdata=1a700001
+# [5590000] T12 lat=1 | WR 000002c0 MISS    lat=4 wdata=1a700002
+# [5650000] T12 lat=1 | WR 000003c0 MISS    lat=4 wdata=1a700003
+# [5740000] T12 lat=1 | WR 000004c0 MISS+WB lat=7 wdata=1a700004
+# [5830000] T12 lat=1 dirty conflict | RD 000000c0 MISS+WB lat=7 rdata=1a700000
+# [6080000] T12 lat=20 | WR 000000d4 MISS    lat=23 wdata=20700000
+# [6330000] T12 lat=20 | WR 000001d4 MISS    lat=23 wdata=20700001
+# [6580000] T12 lat=20 | WR 000002d4 MISS    lat=23 wdata=20700002
+# [6830000] T12 lat=20 | WR 000003d4 MISS    lat=23 wdata=20700003
+# [7300000] T12 lat=20 | WR 000004d4 MISS+WB lat=45 wdata=20700004
+# [7770000] T12 lat=20 dirty conflict | RD 000000d4 MISS+WB lat=45 rdata=20700000
+# 
+# ==== T13 reset in the middle of a miss ====
+# [7850000] T13 dirty line (will be LOST) | WR 000005e0 MISS    lat=6 wdata=5555aaaa
+# [7990000] T13 old dirty data gone (MISS) | RD 000005e0 MISS    lat=6 rdata=5eed05e0
+# [8070000] T13 everything invalid (MISS) | RD 00000000 MISS    lat=6 rdata=5eed0000
+# 
+# ==== T15 working set: 3 tags/set x 16 sets (48 lines, fits in cache), 2000 ops ====
+# T15 hits=1953 misses=47  hit rate=97.7%  (cold misses allowed <= 48)
+# 
+# ==== T14 random traffic (5000 ops, latency 1..8, bus noise) ====
+# 
+# ==== COVERAGE ====
+# read  hits=2596  misses=2194
+# store hits=1246  misses=1064
+# fills into free way=102  clean evictions=1769  dirty writebacks=1387
+# response latency seen: 0 .. 45 cycles after accept
+# way 0 : hits=1946  fills=822
+# way 1 : hits=1932  fills=817
+# way 2 : hits=1918  fills=828
+# way 3 : hits=1304  fills=791
+# cycles  IDLE=7635 COMPARE=10359 WRITE_BACK=8929 ALLOCATE=20993
+# --------------------------------------------------
+# TEST PASSED
+# ** Note: $finish    : testbench.sv(676)
+#    Time: 479230 ns  Iteration: 1  Instance: /tb
+# End time: 16:58:48 on Oct 14,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+End time: 16:58:48 on Oct 14,2026, Elapsed time: 0:00:02
+*** Summary *********************************************
+    qrun: Errors:   0, Warnings:   0
+    vlog: Errors:   0, Warnings:   0
+    vopt: Errors:   0, Warnings:   1
+    vsim: Errors:   0, Warnings:   0
+  Totals: Errors:   0, Warnings:   1
+Done
