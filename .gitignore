@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+uvm_tb_v2.1/regression/results/*/
+*.vcd
